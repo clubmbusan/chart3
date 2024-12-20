@@ -3,80 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>USD to KRW Exchange Rate Chart</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>USD/KRW Live Chart</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 0;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
         }
-        #chartContainer {
-            max-width: 800px;
-            margin: 0 auto;
+        h1 {
+            color: #333;
+        }
+        #tradingview_widget {
+            margin: 20px auto;
+            max-width: 100%;
+            width: 800px;
         }
     </style>
 </head>
 <body>
-    <h1>USD to KRW Exchange Rate</h1>
-    <p>Interactive chart displaying the exchange rate of USD to KRW over time.</p>
-    <div id="chartContainer">
-        <canvas id="exchangeRateChart"></canvas>
-    </div>
+    <h1>USD/KRW Live Trading Chart</h1>
+    <p>Real-time chart for USD to KRW exchange rate provided by TradingView.</p>
+    <div id="tradingview_widget"></div>
 
-    <script>
-        // Example static data: You can replace this with dynamic data fetched from an API
-        const exchangeRateData = {
-            labels: ['2024-12-01', '2024-12-02', '2024-12-03', '2024-12-04', '2024-12-05'],
-            datasets: [{
-                label: 'USD to KRW',
-                data: [1320, 1315, 1330, 1325, 1318], // Replace with actual exchange rate data
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderWidth: 2,
-                fill: true,
-            }]
-        };
-
-        // Chart.js configuration
-        const config = {
-            type: 'line',
-            data: exchangeRateData,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return `${context.dataset.label}: ${context.parsed.y} KRW`;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Date'
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Exchange Rate (KRW)'
-                        },
-                        beginAtZero: false
-                    }
-                }
-            },
-        };
-
-        // Render the chart
-        const ctx = document.getElementById('exchangeRateChart').getContext('2d');
-        new Chart(ctx, config);
+    <!-- TradingView Widget Script -->
+    <script type="text/javascript">
+        new TradingView.widget({
+            "container_id": "tradingview_widget",
+            "width": "100%",
+            "height": 500,
+            "symbol": "FX_IDC:USDKRW",
+            "interval": "D",
+            "timezone": "Etc/UTC",
+            "theme": "light",
+            "style": "1",
+            "locale": "en",
+            "toolbar_bg": "#f1f3f6",
+            "enable_publishing": false,
+            "allow_symbol_change": true,
+            "studies": ["RSI@tv-basicstudies", "MACD@tv-basicstudies"],
+            "show_popup_button": true,
+            "popup_width": "1000",
+            "popup_height": "650"
+        });
     </script>
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 </body>
 </html>
