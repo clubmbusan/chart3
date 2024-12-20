@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USD to KRW Exchange Rate Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+        }
+        #chartContainer {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>USD to KRW Exchange Rate</h1>
+    <p>Interactive chart displaying the exchange rate of USD to KRW over time.</p>
+    <div id="chartContainer">
+        <canvas id="exchangeRateChart"></canvas>
+    </div>
+
+    <script>
+        // Example static data: You can replace this with dynamic data fetched from an API
+        const exchangeRateData = {
+            labels: ['2024-12-01', '2024-12-02', '2024-12-03', '2024-12-04', '2024-12-05'],
+            datasets: [{
+                label: 'USD to KRW',
+                data: [1320, 1315, 1330, 1325, 1318], // Replace with actual exchange rate data
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderWidth: 2,
+                fill: true,
+            }]
+        };
+
+        // Chart.js configuration
+        const config = {
+            type: 'line',
+            data: exchangeRateData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.parsed.y} KRW`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Exchange Rate (KRW)'
+                        },
+                        beginAtZero: false
+                    }
+                }
+            },
+        };
+
+        // Render the chart
+        const ctx = document.getElementById('exchangeRateChart').getContext('2d');
+        new Chart(ctx, config);
+    </script>
+</body>
+</html>
